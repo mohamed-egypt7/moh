@@ -45,20 +45,19 @@
         .ad-banner-top { top: 0; border-top: none; border-left: none; border-right: none; }
         .ad-banner-bottom { bottom: 0; border-bottom: none; border-left: none; border-right: none; }
 
-        /* المساحات الإعلانية للجانبين (يظهر في الشاشات الواسعة) */
+        /* مساحات إعلانية اليمين واليسار (ممتدة بطول الشاشة ومكبرة) */
         .ad-side {
             position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 160px;
-            height: calc(100vh - 140px);
+            top: 70px;
+            bottom: 70px;
+            width: 180px; /* تكبير عرض المساحة الجانبية */
             background: rgba(30, 41, 59, 0.95);
             border: 1px dashed #38bdf8;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 100;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             color: #38bdf8;
             text-align: center;
@@ -75,7 +74,7 @@
         .redirect-card {
             background: #1e293b;
             border-radius: 20px;
-            padding: 30px 25px;
+            padding: 35px 25px;
             width: 100%;
             max-width: 420px;
             text-align: center;
@@ -103,7 +102,7 @@
         }
 
         .countdown-circle {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: bold;
             color: #f43f5e;
             margin: 15px 0;
@@ -112,25 +111,7 @@
         .info-text {
             color: #94a3b8;
             font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .btn-go {
-            background: linear-gradient(135deg, #0ea5e9, #2563eb);
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            width: 100%;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
-            transition: 0.3s;
-        }
-
-        .btn-go:hover {
-            opacity: 0.9;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -141,12 +122,12 @@
         <span>مساحة إعلانية</span>
     </div>
 
-    <!-- مساحة إعلانية أيسر -->
+    <!-- مساحة إعلانية أيسر ممتدة -->
     <div class="ad-side ad-left">
         <span>مساحة إعلانية</span>
     </div>
 
-    <!-- مساحة إعلانية أيمن -->
+    <!-- مساحة إعلانية أيمن ممتدة -->
     <div class="ad-side ad-right">
         <span>مساحة إعلانية</span>
     </div>
@@ -163,8 +144,6 @@
         
         <!-- العداد التنازلي -->
         <div class="countdown-circle" id="counter">10</div>
-
-        <button class="btn-go" onclick="redirectNow()">انتقل فوراً ➡️</button>
     </div>
 
     <!-- مساحة إعلانية سفلية -->
@@ -196,13 +175,9 @@
 
             if (timeLeft <= 0) {
                 clearInterval(countdownTimer);
-                redirectNow();
+                window.location.href = finalUrl;
             }
         }, 1000);
-
-        function redirectNow() {
-            window.location.href = finalUrl;
-        }
     </script>
 </body>
 </html>
