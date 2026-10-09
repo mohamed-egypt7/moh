@@ -45,12 +45,12 @@
         .ad-banner-top { top: 0; border-top: none; border-left: none; border-right: none; }
         .ad-banner-bottom { bottom: 0; border-bottom: none; border-left: none; border-right: none; }
 
-        /* مساحات إعلانية اليمين واليسار (ممتدة بطول الشاشة ومكبرة) */
+        /* مساحات إعلانية اليمين واليسار (ممتدة بطول الشاشة) */
         .ad-side {
             position: fixed;
             top: 70px;
             bottom: 70px;
-            width: 180px; /* تكبير عرض المساحة الجانبية */
+            width: 180px;
             background: rgba(30, 41, 59, 0.95);
             border: 1px dashed #38bdf8;
             display: flex;
@@ -94,11 +94,12 @@
             border: 1px solid #475569;
             padding: 12px;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 15px;
             color: #e2e8f0;
             margin-bottom: 20px;
             word-break: break-all;
             font-weight: bold;
+            direction: ltr;
         }
 
         .countdown-circle {
@@ -138,7 +139,7 @@
         <div class="info-text">وجهتك المقصودة:</div>
         
         <!-- اسم أو رابط الوجهة -->
-        <div class="destination-box" id="targetName">صفحة المنتجات والخدمات</div>
+        <div class="destination-box" id="targetName">جاري التحميل...</div>
 
         <div class="info-text">سيتم التوجيه تلقائياً خلال:</div>
         
@@ -152,19 +153,18 @@
     </div>
 
     <script>
-        const targetUrl = "https://cognoor.vercel.app"; 
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const customTarget = urlParams.get('to');
-        const customTitle = urlParams.get('title');
+        // استخراج الرابط الذي يأتي بعد علامة التعجب (!) في الـ Hash
+        let rawHash = window.location.hash; // مثال: #!https://google.com
+        let targetUrl = "https://cognoor.vercel.app"; // رابط افتراضي في حال لم يتم كتابة رابط
 
-        let finalUrl = targetUrl;
-        if (customTarget) {
-            finalUrl = decodeURIComponent(customTarget);
-            document.getElementById('targetName').innerText = customTitle ? decodeURIComponent(customTitle) : finalUrl;
-        } else {
-            document.getElementById('targetName').innerText = targetUrl;
+        if (rawHash.startsWith("#!")) {
+            targetUrl = rawHash.substring(2); // إزالة الـ #! للحصول على الرابط الصافي
+        } else if (rawHash.startsWith("#")) {
+            targetUrl = rawHash.substring(1);
         }
+
+        // عرض اسم الوجهة أو الرابط في الصندوق
+        document.getElementById('targetName').innerText = targetUrl;
 
         let timeLeft = 10;
         const counterElement = document.getElementById('counter');
@@ -175,7 +175,7 @@
 
             if (timeLeft <= 0) {
                 clearInterval(countdownTimer);
-                window.location.href = finalUrl;
+                window.location.href = targetUrl;
             }
         }, 1000);
     </script>
