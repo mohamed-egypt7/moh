@@ -89,17 +89,19 @@
             font-size: 22px;
         }
 
+        /* صندوق الدومين (غير قابل للضغط ومقصود لعرض اسم الدومين فقط) */
         .destination-box {
             background: #0f172a;
             border: 1px solid #475569;
             padding: 12px;
             border-radius: 12px;
-            font-size: 15px;
-            color: #e2e8f0;
+            font-size: 16px;
+            color: #38bdf8;
             margin-bottom: 20px;
-            word-break: break-all;
             font-weight: bold;
             direction: ltr;
+            user-select: none;
+            pointer-events: none;
         }
 
         .countdown-circle {
@@ -136,9 +138,9 @@
     <!-- محتوى صفحة التوجيه في المنتصف -->
     <div class="redirect-card">
         <h2>جاري تحويلك الآن... 🚀</h2>
-        <div class="info-text">وجهتك المقصودة:</div>
+        <div class="info-text">الدومين المستهدف:</div>
         
-        <!-- اسم أو رابط الوجهة -->
+        <!-- اسم الدومين فقط وغير قابل للضغط -->
         <div class="destination-box" id="targetName">جاري التحميل...</div>
 
         <div class="info-text">سيتم التوجيه تلقائياً خلال:</div>
@@ -153,18 +155,25 @@
     </div>
 
     <script>
-        // استخراج الرابط الذي يأتي بعد علامة التعجب (!) في الـ Hash
-        let rawHash = window.location.hash; // مثال: #!https://google.com
-        let targetUrl = "https://cognoor.vercel.app"; // رابط افتراضي في حال لم يتم كتابة رابط
+        let rawHash = window.location.hash;
+        let targetUrl = "https://cognoor.vercel.app";
 
         if (rawHash.startsWith("#!")) {
-            targetUrl = rawHash.substring(2); // إزالة الـ #! للحصول على الرابط الصافي
+            targetUrl = rawHash.substring(2);
         } else if (rawHash.startsWith("#")) {
             targetUrl = rawHash.substring(1);
         }
 
-        // عرض اسم الوجهة أو الرابط في الصندوق
-        document.getElementById('targetName').innerText = targetUrl;
+        // استخراج اسم الدومين فقط بصيغة صافية
+        let domainOnly = targetUrl;
+        try {
+            let parsedObj = new URL(targetUrl.includes('http') ? targetUrl : 'https://' + targetUrl);
+            domainOnly = parsedObj.hostname.replace('www.', '');
+        } catch(e) {
+            domainOnly = targetUrl;
+        }
+
+        document.getElementById('targetName').innerText = domainOnly;
 
         let timeLeft = 10;
         const counterElement = document.getElementById('counter');
@@ -175,7 +184,12 @@
 
             if (timeLeft <= 0) {
                 clearInterval(countdownTimer);
-                window.location.href = targetUrl;
+                
+                // التأكد من وجود البروتوكول في الرابط
+                let finalDestination = targetUrl.includes('http') ? targetUrl : 'https://' + targetUrl;
+                
+                // استخدام replace لمنع الرجوع لهذه الصفحة نهائياً من سجل المتصفح
+                window.location.replace(finalDestination);
             }
         }, 1000);
     </script>
