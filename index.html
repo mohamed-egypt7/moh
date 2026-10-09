@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري تحويلك... ⏳</title>
+    
+    <!-- كود إثبات الملكية وجوجل أدسنس الخاص بك -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7477909490779964" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 70px 15px;
+        }
+
+        /* المساحات الإعلانية (فوق وتحت) */
+        .ad-banner-top, .ad-banner-bottom {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px dashed #38bdf8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            font-size: 14px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .ad-banner-top { top: 0; border-top: none; border-left: none; border-right: none; }
+        .ad-banner-bottom { bottom: 0; border-bottom: none; border-left: none; border-right: none; }
+
+        /* المساحات الإعلانية للجانبين (يظهر في الشاشات الواسعة) */
+        .ad-side {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 160px;
+            height: calc(100vh - 140px);
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px dashed #38bdf8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            font-size: 14px;
+            font-weight: bold;
+            color: #38bdf8;
+            text-align: center;
+            padding: 10px;
+        }
+        .ad-left { left: 10px; }
+        .ad-right { right: 10px; }
+
+        @media (max-width: 1200px) {
+            .ad-side { display: none; } /* إخفاء الجانبين على الموبايل تلقائياً */
+        }
+
+        /* صندوق المحتوى الرئيسي في المنتصف */
+        .redirect-card {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 30px 25px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 2px solid #334155;
+            z-index: 10;
+        }
+
+        h2 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .destination-box {
+            background: #0f172a;
+            border: 1px solid #475569;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+            word-break: break-all;
+            font-weight: bold;
+        }
+
+        .countdown-circle {
+            font-size: 42px;
+            font-weight: bold;
+            color: #f43f5e;
+            margin: 15px 0;
+        }
+
+        .info-text {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .btn-go {
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            width: 100%;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-go:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- مساحة إعلانية علوية -->
+    <div class="ad-banner-top">
+        <span>مساحة إعلانية</span>
+    </div>
+
+    <!-- مساحة إعلانية أيسر -->
+    <div class="ad-side ad-left">
+        <span>مساحة إعلانية</span>
+    </div>
+
+    <!-- مساحة إعلانية أيمن -->
+    <div class="ad-side ad-right">
+        <span>مساحة إعلانية</span>
+    </div>
+
+    <!-- محتوى صفحة التوجيه في المنتصف -->
+    <div class="redirect-card">
+        <h2>جاري تحويلك الآن... 🚀</h2>
+        <div class="info-text">وجهتك المقصودة:</div>
+        
+        <!-- اسم أو رابط الوجهة -->
+        <div class="destination-box" id="targetName">صفحة المنتجات والخدمات</div>
+
+        <div class="info-text">سيتم التوجيه تلقائياً خلال:</div>
+        
+        <!-- العداد التنازلي -->
+        <div class="countdown-circle" id="counter">10</div>
+
+        <button class="btn-go" onclick="redirectNow()">انتقل فوراً ➡️</button>
+    </div>
+
+    <!-- مساحة إعلانية سفلية -->
+    <div class="ad-banner-bottom">
+        <span>مساحة إعلانية</span>
+    </div>
+
+    <script>
+        const targetUrl = "https://cognoor.vercel.app"; 
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const customTarget = urlParams.get('to');
+        const customTitle = urlParams.get('title');
+
+        let finalUrl = targetUrl;
+        if (customTarget) {
+            finalUrl = decodeURIComponent(customTarget);
+            document.getElementById('targetName').innerText = customTitle ? decodeURIComponent(customTitle) : finalUrl;
+        } else {
+            document.getElementById('targetName').innerText = targetUrl;
+        }
+
+        let timeLeft = 10;
+        const counterElement = document.getElementById('counter');
+
+        const countdownTimer = setInterval(() => {
+            timeLeft--;
+            counterElement.innerText = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                redirectNow();
+            }
+        }, 1000);
+
+        function redirectNow() {
+            window.location.href = finalUrl;
+        }
+    </script>
+</body>
+</html>
