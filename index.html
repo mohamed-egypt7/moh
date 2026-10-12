@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جاري تحويلك... ⏳</title>
+    <title>عالم السيارات - دليل تصنيع السيارات ومكوناتها الشامل</title>
     
-    <!-- كود إثبات الملكية وجوجل أدسنس المحدث -->
+    <!-- كود إثبات الملكية وجوجل أدسنس -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7477909490779964"
      crossorigin="anonymous"></script>
 
@@ -20,21 +20,21 @@
             min-height: 100vh;
             margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             position: relative;
             overflow-x: hidden;
-            padding: 70px 15px;
+            padding: 80px 15px;
         }
 
-        /* المساحات الإعلانية (فوق وتحت) */
+        /* المساحات الإعلانية العلوية والسفلية */
         .ad-banner-top, .ad-banner-bottom {
             position: fixed;
             left: 0;
             width: 100%;
             height: 60px;
             background: rgba(30, 41, 59, 0.95);
-            border: 1px dashed #38bdf8;
+            border-bottom: 1px dashed #38bdf8;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -43,54 +43,37 @@
             font-weight: bold;
             color: #38bdf8;
         }
-        .ad-banner-top { top: 0; border-top: none; border-left: none; border-right: none; }
-        .ad-banner-bottom { bottom: 0; border-bottom: none; border-left: none; border-right: none; }
+        .ad-banner-top { top: 0; }
+        .ad-banner-bottom { bottom: 0; border-top: 1px dashed #38bdf8; border-bottom: none; }
 
-        /* مساحات إعلانية اليمين واليسار (ممتدة بطول الشاشة) */
-        .ad-side {
-            position: fixed;
-            top: 70px;
-            bottom: 70px;
-            width: 180px;
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px dashed #38bdf8;
-            display: flex;
+        /* حاوية وضع التحويل (Redirect Mode) */
+        #redirectMode {
+            display: none;
+            width: 100%;
+            max-width: 450px;
             justify-content: center;
             align-items: center;
-            z-index: 100;
-            font-size: 15px;
-            font-weight: bold;
-            color: #38bdf8;
-            text-align: center;
-            padding: 10px;
-        }
-        .ad-left { left: 10px; }
-        .ad-right { right: 10px; }
-
-        @media (max-width: 1200px) {
-            .ad-side { display: none; } /* إخفاء الجانبين على الموبايل تلقائياً */
+            flex-direction: column;
+            z-index: 10;
+            margin-top: 50px;
         }
 
-        /* صندوق المحتوى الرئيسي في المنتصف */
         .redirect-card {
             background: #1e293b;
             border-radius: 20px;
             padding: 35px 25px;
             width: 100%;
-            max-width: 420px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             border: 2px solid #334155;
-            z-index: 10;
         }
 
-        h2 {
+        .redirect-card h2 {
             color: #38bdf8;
             margin-bottom: 15px;
             font-size: 22px;
         }
 
-        /* صندوق الدومين (غير قابل للضغط ومقصود لعرض اسم الدومين فقط) */
         .destination-box {
             background: #0f172a;
             border: 1px solid #475569;
@@ -101,8 +84,6 @@
             margin-bottom: 20px;
             font-weight: bold;
             direction: ltr;
-            user-select: none;
-            pointer-events: none;
         }
 
         .countdown-circle {
@@ -110,6 +91,50 @@
             font-weight: bold;
             color: #f43f5e;
             margin: 15px 0;
+        }
+
+        /* حاوية وضع المقال الشامل (Article Mode - لأجل أدسنس) */
+        #articleMode {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            z-index: 10;
+            margin-bottom: 40px;
+        }
+
+        .article-container {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #334155;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            line-height: 1.9;
+        }
+
+        .article-container h1 {
+            color: #38bdf8;
+            font-size: 26px;
+            margin-top: 0;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .article-container h2 {
+            color: #f43f5e;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .article-container p, .article-container li {
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .article-container ul {
+            padding-right: 20px;
         }
 
         .info-text {
@@ -123,75 +148,103 @@
 
     <!-- مساحة إعلانية علوية -->
     <div class="ad-banner-top">
-        <span>مساحة إعلانية</span>
+        <span>مساحة إعلانية معتمدة من جوجل أدسنس</span>
     </div>
 
-    <!-- مساحة إعلانية أيسر ممتدة -->
-    <div class="ad-side ad-left">
-        <span>مساحة إعلانية</span>
+    <!-- وضع إعادة التوجيه (يظهر فقط إذا كان هناك رابط مخصص في الـ Hash) -->
+    <div id="redirectMode">
+        <div class="redirect-card">
+            <h2>جاري تحويلك الآن... 🚀</h2>
+            <div class="info-text">الدومين المستهدف:</div>
+            <div class="destination-box" id="targetName">جاري التحميل...</div>
+            <div class="info-text">سيتم التوجيه تلقائياً خلال:</div>
+            <div class="countdown-circle" id="counter">10</div>
+        </div>
     </div>
 
-    <!-- مساحة إعلانية أيمن ممتدة -->
-    <div class="ad-side ad-right">
-        <span>مساحة إعلانية</span>
-    </div>
+    <!-- وضع المقال الشامل (يظهر في الصفحة الرئيسية للموقع لضمان قبول أدسنس) -->
+    <div id="articleMode">
+        <div class="article-container">
+            <h1>دليل صناعة السيارات: من خطوط الإنتاج إلى الشارع ومكوناتها الأساسية</h1>
+            <p>تعتبر صناعة السيارات واحدة من أكثر الصناعات تعقيداً وتطوراً في العصر الحديث، حيث تدمج بين الهندسة الميكانيكية، الإلكترونيات المتقدمة، وتكنولوجيا الذكاء الاصطناعي. في هذا المقال الشامل، سنأخذك في جولة داخل مصانع السيارات لنكتشف مراحل تصنيعها بدقة، إلى جانب تفصيل أهم مكوناتها الأساسية.</p>
 
-    <!-- محتوى صفحة التوجيه في المنتصف -->
-    <div class="redirect-card">
-        <h2>جاري تحويلك الآن... 🚀</h2>
-        <div class="info-text">الدومين المستهدف:</div>
-        
-        <!-- اسم الدومين فقط وغير قابل للضغط -->
-        <div class="destination-box" id="targetName">جاري التحميل...</div>
+            <h2>أولاً: مراحل تصنيع السيارة في المصانع الكبرى</h2>
+            <p>تمر السيارة برحلة طويلة ومثيرة قبل أن تصبح جاهزة للقيادة في الشارع، وتتكون عملية التصنيع من 5 مراحل رئيسية:</p>
+            <ul>
+                <li><strong>1. مرحلة التصميم والتطوير (Design & Engineering):</strong> تبدأ الفكرة على شكل رسومات رقمية هندسية، ثم يتم اختبار الديناميكية الهوائية (Aerodynamics) واختبارات الأمان الافتراضية عبر حواسيب فائقة السرعة.</li>
+                <li><strong>2. مرحلة الختم والتشكيل (Stamping):</strong> يتم جلب لفائف الفولاذ والألومنيوم الضخمة، وقصها و‘كبسها‘ عبر قوالب عملاقة لتشكيل أجزاء هيكل السيارة الخارجي (الأبواب، غطاء المحرك، السقف).</li>
+                <li><strong>3. مرحلة اللحام (Welding):</strong> يتم تجميع الأجزاء المختومة معاً عبر روبوتات لحام ذكية ومتطورة لتشكيل "هيكل السيارة العظمي" (Body-in-White).</li>
+                <li><strong>4. مرحلة الطلاء والحماية (Painting):</strong> يمر الهيكل العظمي في حمامات كيميائية لمنع الصدأ، ثم يتم طلاؤه بعدة طبقات أساسية وملونة مع طبقة حماية شفافة تعطي اللمعان والصلابة.</li>
+                <li><strong>5. مرحلة التجميع النهائي (General Assembly):</strong> في هذه المرحلة يتم تركيب المحرك، ناقل الحركة، العجلات، المقصورة الداخلية، المقاعد، والأنظمة الكهربائية والبرمجية بالكامل.</li>
+                <li><strong>6. مراقبة الجودة والاختبارات (Quality Control):</strong> تخضع كل سيارة لاختبارات قاسية تشمل اختبارات تسرب المياه، اختبارات السرعة على مسارات مخصصة، وفحص إلكتروني شامل لكافة الحساسات.</li>
+            </ul>
 
-        <div class="info-text">سيتم التوجيه تلقائياً خلال:</div>
-        
-        <!-- العداد التنازلي -->
-        <div class="countdown-circle" id="counter">10</div>
+            <h2>ثانياً: ما هي المكونات الأساسية للسيارة؟</h2>
+            <p>تتكون أي سيارة تقليدية أو حديثة من مجموعة من الأنظمة الحيوية التي تضمن عملها بكفاءة:</p>
+            <ul>
+                <li><strong>محرك السيارة (Car Engine):</strong> يُعتبر بمثابة "قلب السيارة"، وهو المسؤول عن تحويل الوقود (أو الطاقة الكهربائية) إلى طاقة حركية تدفع العجلات.</li>
+                <li><strong>ناقل الحركة (Transmission / الفتيس):</strong> يقوم بنقل القوة الناتجة من المحرك إلى العجلات بالنسب المناسبة للسرعة، سواء كان يدوياً أو أوتوماتيكياً.</li>
+                <li><strong>الهيكل والشاصي (Chassis & Frame):</strong> الإطار الصلب الذي يحمل كافة أجزاء السيارة ويمنحها الصلابة والثبات على الطرق.</li>
+                <li><strong>نظام التعليق والمساعدين (Suspension System):</strong> يضم الينابيع والمساعدين لامتصاص الصدمات والاهتزازات الناتجة عن عيوب الطرق، مما يضمن راحة الركاب.</li>
+                <li><strong>نظام الفرامل (Braking System):</strong> النظام الأهم للأمان، ويعتمد على الاحتكاك أو الأنظمة الإلكترونية لإيقاف السيارة أو إبطاء سرعتها بسرعة وأمان.</li>
+                <li><strong>الأنظمة الكهربائية والإلكترونية:</strong> تشمل البطارية، وحدة التحكم الإلـكترونية (ECU)، شاشات العرض، وأنظمة الملاحة والترفيه الذكية.</li>
+            </ul>
+
+            <h2>خاتمة</h2>
+            <p>إن تطور صناعة السيارات لم يعد يقف عند حدود التنقل فحسب، بل أصبح يعتمد بشكل أساسي على الاستدامة، السيارات الكهربائية، والقيادة الذاتية. نتمنى أن يكون هذا المقال قد قدم لك نظرة شاملة وواضحة عن عالم صناعة السيارات.</p>
+        </div>
     </div>
 
     <!-- مساحة إعلانية سفلية -->
     <div class="ad-banner-bottom">
-        <span>مساحة إعلانية</span>
+        <span>مساحة إعلانية معتمدة من جوجل أدسنس</span>
     </div>
 
     <script>
         let rawHash = window.location.hash;
-        let targetUrl = "https://cognoor.vercel.app";
+        
+        // التحقق مما إذا كان هناك رابط مخصص في الـ Hash للتحويل
+        if (rawHash && rawHash.length > 1) {
+            // إظهار وضع التحويل وإخفاء وضع المقال
+            document.getElementById('redirectMode').style.display = 'flex';
+            document.getElementById('articleMode').style.display = 'none';
 
-        if (rawHash.startsWith("#!")) {
-            targetUrl = rawHash.substring(2);
-        } else if (rawHash.startsWith("#")) {
-            targetUrl = rawHash.substring(1);
-        }
-
-        // استخراج اسم الدومين فقط بصيغة صافية
-        let domainOnly = targetUrl;
-        try {
-            let parsedObj = new URL(targetUrl.includes('http') ? targetUrl : 'https://' + targetUrl);
-            domainOnly = parsedObj.hostname.replace('www.', '');
-        } catch(e) {
-            domainOnly = targetUrl;
-        }
-
-        document.getElementById('targetName').innerText = domainOnly;
-
-        let timeLeft = 10;
-        const counterElement = document.getElementById('counter');
-
-        const countdownTimer = setInterval(() => {
-            timeLeft--;
-            counterElement.innerText = timeLeft;
-
-            if (timeLeft <= 0) {
-                clearInterval(countdownTimer);
-                
-                let finalDestination = targetUrl.includes('http') ? targetUrl : 'https://' + targetUrl;
-                
-                // استخدام replace لمنع الرجوع لهذه الصفحة نهائياً من سجل المتصفح
-                window.location.replace(finalDestination);
+            let targetUrl = "https://cognoor.vercel.app";
+            if (rawHash.startsWith("#!")) {
+                targetUrl = rawHash.substring(2);
+            } else if (rawHash.startsWith("#")) {
+                targetUrl = rawHash.substring(1);
             }
-        }, 1000);
+
+            let domainOnly = targetUrl;
+            try {
+                let parsedObj = new URL(targetUrl.includes('http') ? targetUrl : 'https://' + targetUrl);
+                domainOnly = parsedObj.hostname.replace('www.', '');
+            } catch(e) {
+                domainOnly = targetUrl;
+            }
+
+            document.getElementById('targetName').innerText = domainOnly;
+
+            let timeLeft = 10;
+            const counterElement = document.getElementById('counter');
+
+            const countdownTimer = setInterval(() => {
+                timeLeft--;
+                counterElement.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownTimer);
+                    let finalDestination = targetUrl.includes('http') ? targetUrl : 'https://' + targetUrl;
+                    window.location.replace(finalDestination);
+                }
+            }, 1000);
+
+        } else {
+            // إذا دخل الزائر على الدومين الرئيسي مباشرة، سيظهر المقال الشامل (ليقبله أدسنس)
+            document.getElementById('redirectMode').style.display = 'none';
+            document.getElementById('articleMode').style.display = 'block';
+        }
     </script>
 </body>
 </html>
