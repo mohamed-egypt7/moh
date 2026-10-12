@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عالم السيارات - الموسوعة الشاملة لتصنيع السيارات ومكوناتها التقنية</title>
+    <title>الموسوعة التفاعلية للسيارات - دليل التصنيع والمكونات الهندسية</title>
     
     <!-- كود إثبات الملكية وجوجل أدسنس -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7477909490779964"
      crossorigin="anonymous"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; scroll-behavior: smooth; }
 
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #0b0f19;
+            color: #f1f5f9;
             min-height: 100vh;
             margin: 0;
             display: flex;
@@ -24,7 +25,20 @@
             align-items: center;
             position: relative;
             overflow-x: hidden;
-            padding: 80px 15px;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        /* شريط تقدم القراءة العلوي */
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #f43f5e);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease;
         }
 
         /* المساحات الإعلانية العلوية والسفلية */
@@ -33,17 +47,17 @@
             left: 0;
             width: 100%;
             height: 60px;
-            background: rgba(30, 41, 59, 0.95);
+            background: rgba(15, 23, 42, 0.95);
             border-bottom: 1px dashed #38bdf8;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 100;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #38bdf8;
         }
-        .ad-banner-top { top: 0; }
+        .ad-banner-top { top: 4px; }
         .ad-banner-bottom { bottom: 0; border-top: 1px dashed #38bdf8; border-bottom: none; }
 
         /* حاوية وضع التحويل (Redirect Mode) */
@@ -56,6 +70,7 @@
             flex-direction: column;
             z-index: 10;
             margin-top: 50px;
+            padding: 0 15px;
         }
 
         .redirect-card {
@@ -75,7 +90,7 @@
         }
 
         .destination-box {
-            background: #0f172a;
+            background: #0b0f19;
             border: 1px solid #475569;
             padding: 12px;
             border-radius: 12px;
@@ -93,57 +108,180 @@
             margin: 15px 0;
         }
 
-        /* حاوية وضع المقال الموسوعي (Article Mode - لأجل أدسنس) */
+        /* حاوية وضع المقال الموسوعي التفاعلي (Article Mode) */
         #articleMode {
             display: none;
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             z-index: 10;
+            padding: 0 15px;
             margin-bottom: 40px;
         }
 
         .article-container {
             background: #1e293b;
-            border-radius: 20px;
-            padding: 35px;
+            border-radius: 24px;
+            padding: 40px;
             border: 2px solid #334155;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            line-height: 2;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            line-height: 2.1;
         }
 
         .article-container h1 {
             color: #38bdf8;
-            font-size: 28px;
+            font-size: 30px;
             margin-top: 0;
             border-bottom: 2px solid #334155;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 900;
         }
 
         .article-container h2 {
             color: #f43f5e;
-            font-size: 21px;
-            margin-top: 30px;
-            margin-bottom: 12px;
-            border-right: 4px solid #f43f5e;
-            padding-right: 10px;
+            font-size: 22px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-right: 5px solid #f43f5e;
+            padding-right: 12px;
         }
 
         .article-container h3 {
             color: #38bdf8;
-            font-size: 17px;
-            margin-top: 20px;
-            margin-bottom: 8px;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
 
         .article-container p, .article-container li {
             color: #cbd5e1;
-            font-size: 15px;
-            margin-bottom: 14px;
+            font-size: 16px;
+            margin-bottom: 16px;
         }
 
-        .article-container ul {
-            padding-right: 20px;
+        /* جدول المحتويات التفاعلي (TOC) */
+        .toc-box {
+            background: #0b0f19;
+            border: 1.5px dashed #38bdf8;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .toc-box h3 {
+            color: #38bdf8;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .toc-list li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toc-list li a:hover {
+            color: #38bdf8;
+            transform: translateX(-5px);
+        }
+
+        /* نظام التبويبات التفاعلي (Interactive Tabs) لمكونات السيارة */
+        .tabs-container {
+            background: #0b0f19;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .tabs-header {
+            display: flex;
+            background: #111827;
+            overflow-x: auto;
+            border-bottom: 1px solid #334155;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            padding: 15px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #38bdf8;
+            border-bottom-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .tab-content {
+            padding: 25px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h4 {
+            color: #f43f5e;
+            margin-top: 0;
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        /* قسم التقييم التفاعلي */
+        .feedback-section {
+            background: #111827;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 40px;
+            border: 1px solid #334155;
+        }
+
+        .feedback-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .feed-btn {
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .feed-btn:hover {
+            background: #38bdf8;
+            color: #0b0f19;
+            border-color: #38bdf8;
         }
 
         .info-text {
@@ -155,12 +293,15 @@
 </head>
 <body>
 
+    <!-- شريط تقدم القراءة -->
+    <div id="progressBar"></div>
+
     <!-- مساحة إعلانية علوية -->
     <div class="ad-banner-top">
         <span>مساحة إعلانية معتمدة من جوجل أدسنس</span>
     </div>
 
-    <!-- وضع إعادة التوجيه (يظهر فقط إذا كان هناك رابط مخصص في الـ Hash) -->
+    <!-- وضع إعادة التوجيه -->
     <div id="redirectMode">
         <div class="redirect-card">
             <h2>جاري تحويلك الآن... 🚀</h2>
@@ -171,53 +312,94 @@
         </div>
     </div>
 
-    <!-- وضع المقال الموسوعي الضخم (يظهر في الصفحة الرئيسية لضمان القبول التام في أدسنس) -->
+    <!-- وضع المقال الموسوعي التفاعلي الضخم -->
     <div id="articleMode">
         <div class="article-container">
-            <h1>الموسوعة الشاملة لصناعة السيارات: من خطوط الإنتاج الآلية إلى أعقد المكونات الهندسية</h1>
-            <p>تُعد صناعة السيارات قمة الهرم التكنولوجي والصناعي في العصر الحديث؛ فهي لا تمثل مجرد وسيلة تنقل يومية، بل هي ملتقى لعلوم الهندسة الميكانيكية، الديناميكا الهوائية، الإلكترونيات المتقدمة، وأنظمة الذكاء الاصطناعي والأمن السيبراني. في هذا التقرير الموسوعي الشامل، نأخذك في رحلة عميقة داخل كواليس أكبر مصانع السيارات العالمية لنستكشف مراحل التصنيع الدقيقة، ونفكك كافة المكونات الجوهرية التي تبني السيارة الحديثة.</p>
+            <h1>الموسوعة التفاعلية الشاملة لصناعة السيارات: من خطوط الإنتاج إلى أعقد المكونات الهندسية</h1>
+            <p>تُعد صناعة السيارات قمة الهرم التكنولوجي والصناعي في العصر الحديث؛ فهي تجمع بين علوم الهندسة الميكانيكية، الديناميكا الهوائية، الإلكترونيات الدقيقة، وأنظمة الذكاء الاصطناعي والأمن السيبراني. نقدم لك في هذا المقال مرجعاً ضخماً وتفاعلياً يغطي كافة جوانب هذا العالم المذهل.</p>
 
-            <h2>أولاً: المراحل التاريخية والتطور الهندسي لصناعة السيارات</h2>
-            <p>منذ اختراع أول مركبة ذاتية الحركة تعمل محرك احتراق داخلي في أواخر القرن التاسع عشر، مر قطاع السيارات بتحولات جذرية. في البداية، كانت السيارات تُصنع يدوياً بالكامل في ورش صغيرة، مما جعلها سلعة نادرة وباهظة الثمن. جاءت الثورة الحقيقية مع إدخال نظام "خط الإنتاج المستمر" (Assembly Line) الذي قلص وقت الإنتاج وخفض التكاليف بشكل هائل وجعل السيارات في متناول الملايين. اليوم، تحولت المصانع التقليدية إلى مدن ذكية رقمية تعتمد بنسبة تزيد عن 85% على الروبوتات والذكاء الاصطناعي لضمان أعلى معايير الجودة والأمان.</p>
+            <!-- جدول المحتويات التفاعلي -->
+            <div class="toc-box">
+                <h3><i class="fa-solid fa-list-ul"></i> محتويات الموسوعة (انقلني إلى القسم):</h3>
+                <ul class="toc-list">
+                    <li><a href="#section1"><i class="fa-solid fa-chevron-left"></i> 1. تطور صناعة السيارات وتاريخها</a></li>
+                    <li><a href="#section2"><i class="fa-solid fa-chevron-left"></i> 2. المراحل الخمس لتصنيع السيارة</a></li>
+                    <li><a href="#section3"><i class="fa-solid fa-chevron-left"></i> 3. المستكشف التفاعلي لمكونات السيارة</a></li>
+                    <li><a href="#section4"><i class="fa-solid fa-chevron-left"></i> 4. أنظمة الأمان والسلامة الذكية</a></li>
+                    <li><a href="#section5"><i class="fa-solid fa-chevron-left"></i> 5. الأسئلة الشائعة حول السيارات</a></li>
+                </ul>
+            </div>
 
-            <h2>ثانياً: المراحل الخمس الكبرى لتصنيع السيارة داخل المصانع الحديثة</h2>
-            <p>تستغرق رحلة تحول مجموعة من صفائح الفولاذ والألومنيوم الخام إلى سيارة فاخرة جاهزة للطريق أسابيع من العمل الدقيق، وتمر المراحل عبر الخطوات التالية:</p>
-            
-            <h3>1. مرحلة التصميم والتطوير الافتراضي (CAD & Simulation)</h3>
-            <p>تبدأ كل سيارة جديدة كفكرة على شاشات الحواسيب العملاقة. يقوم مهندسو التصميم برسم الشكل الخارجي والداخلي بدقة ميكرومترية، تليها اختبارات الافتراضية للأنفاق الهوائية (Wind Tunnels) لقياس مقاومة الهواء ومعامل الانسيابية (Drag Coefficient)، فضلاً عن محاكاة حوادث الاصطدام الافتراضية (Crash Tests) لضمان تشتيت طاقة الصدمة بعيداً عن مقصورة الركاب.</p>
+            <!-- القسم الأول -->
+            <h2 id="section1">أولاً: التطور التاريخي وثورة خطوط الإنتاج</h2>
+            <p>منذ اختراع المركبات الأولى التي تعمل بمحركات الاحتراق الداخلي في أواخر القرن التاسع عشر، شهد قطاع السيارات تحولات جذرية. في البداية، كانت السيارات تُصنع يدوياً بالكامل في ورش صغيرة مما جعلها مقتصرة على الأثرياء. جاءت الثورة الحقيقية مع ابتكار خطوط الإنتاج المستمرة التي قلصت زمن الصنع بشكل مذهل وجعلت السيارات في متناول الجميع.</p>
+            <p>اليوم، لم تعد المصانع مجرد عنابر تقليدية، بل تحولت إلى مدن ذكية رقمية تعتمد بنسبة تزيد عن 85% على الأذرع الروبوتية وأنظمة الأتمتة المتقدمة.</p>
 
-            <h3>2. مرحلة الختم والتشكيل الآلي (Stamping Process)</h3>
-            <p>يتم جلب لفائف معدنية ضخمة من الفولاذ عالي الصلابة أو سبائك الألومنيوم الخفيفة. تمر هذه اللفائف عبر مكابس هيدروليكية عملاقة تزن آلاف الأطنان، وتقوم بقص وتشكيل الأجزاء الخارجية المعقدة مثل أبواب السيارة، غطاء المحرك، السقف، والرفارف بأقصى درجات الدقة.</p>
-
-            <h3>3. مرحلة الهيكل العظمي واللحام بالروبوت (Body-in-White)</h3>
-            <p>بعد ختم الأجزاء، يتم نقلها إلى خطوط لحام روبوتية متطورة. تقوم مئات الأذرع الآلية بربط وتلحيم مئات الأجزاء معاً باستخدام تقنيات اللحام بالليزر والمقاومة الكهربائية لتشكيل هيكل متين ومقاوم للالتواء، والذي يُعرف هكذا قبل تركيب أي إلكترونيات أو محركات.</p>
-
-            <h3>4. الحواضن الكيميائية والطلاء الذكي (Anti-Corrosion & Painting)</h3>
-            <p>يخضع الهيكل العظمي لعملية غسيل كيميائي وغطس في أحواض كهربائية تفاعلية لمنع الصدأ والتآكل تماماً (Cathodic Dip Painting). بعد ذلك، يمر الهيكل على غرف طلاء آلية ترش طبقات متعددة من الأساس، اللون الأساسي، وطبقة الحماية الشفافة (Clear Coat) التي تمنح السيارة بريقها وحمايتها ضد العوامل الجوية.</p>
-
-            <h3>5. خط التجميع النهائي واختبارات الجودة (General Assembly & Quality Control)</h3>
-            <p>في هذه المرحلة المذهلة، يتم تركيب المكونات الميكانيكية والكهربائية تباعاً: المحرك، ناقل الحركة، الأسلاك والضفائر الكهربائية، المقاعد الجلدية، الزجاج، ولوحة العدادات. وفي النهاية، تخضع كل سيارة لاختبارات ميدانية قاسية تشمل اختبارات مقاومة تسرب المياه، مسارات الاهتزازات، وفحص الكمبيوتر الشامل لكافة الحساسات.</p>
-
-            <h2>ثالثاً: التفصيل الهندسي لمكونات السيارة الأساسية</h2>
-            <p>تتكامل المكونات الآلية والإلكترونية داخل السيارة لتشكل وحدة تشغيل متناغمة:</p>
-
-            <h3>1. منظومة توليد القوة (المحركات التقليدية والكهربائية)</h3>
+            <!-- القسم الثاني -->
+            <h2 id="section2">ثانياً: المراحل الخمس الكبرى لتصنيع السيارة</h2>
+            <p>تمر السيارة برحلة هندسية دقيقة تبدأ من ألواح المعادن الخام وحتى تخرج من خط الانتاج:</p>
             <ul>
-                <li><strong>محركات الاحتراق الداخلي (ICE):</strong> تعتمد على احتراق الوقود (بنزين أو ديزل) داخل اسطوانات لتوليد طاقة حركية عبر حركة المكابس وأعمدة المرفق (Crankshaft).</li>
-                <li><strong>المحركات الكهربائية (EV Motors):</strong> تعتمد على الحث الكهرومغناطيسي مستمدة طاقتها من حزم بطاريات ليثيوم-آيون ضخمة، وتتميز بعزم دوران فوري وهدوء تام.</li>
+                <li><strong>1. التصميم والنمذجة الافتراضية:</strong> رسم الهيكل على الحواسيب واختبار ديناميكا الهواء الافتراضية واختبارات حوادث التصادم الرقمية.</li>
+                <li><strong>2. الختم الآلي:</strong> كبس لفائف الفولاذ والألومنيوم الضخمة عبر قوالب عملاقة لتشكيل الأبواب والأسقف بدقة ميكرومترية.</li>
+                <li><strong>3. الهيكل العظمي واللحام بالليزر:</strong> تجميع الأجزاء معاً عبر مئات الروبوتات الذكية لتكوين جسم متين مقاوم للالتواء.</li>
+                <li><strong>4. الحواضن الكيميائية والطلاء:</strong> غطس الهيكل في أحواض منع الصدأ ثم طلاؤه بأحدث التقنيات لضمان اللمعان والحماية ضد العوامل الجوية.</li>
+                <li><strong>5. التجميع النهائي واختبارات الجودة:</strong> تركيب المحرك، المقصورة الداخلية، والأنظمة الإلكترونية تليها اختبارات قاسية للمياه ومسارات السرعة.</li>
             </ul>
 
-            <h3>2. ناقل الحركة (الفتيس / Transmission)</h3>
-            <p>هو الوسيط المسؤول عن نقل طاقة المحرك إلى العجلات بالنسب المناسبة، وينقسم إلى: ناقل حركي يدوي (Manual)، أوتوماتيكي تقليدي (Automatic)، ناقل الحركة المتغير باستمرار (CVT)، وناقل الحركة ذو القابض المزدوج (DCT) فائق السرعة.</p>
+            <!-- القسم الثالث: المستكشف التفاعلي (Interactive Tabs) -->
+            <h2 id="section3">ثالثاً: المستكشف التفاعلي لمكونات السيارة الأساسية</h2>
+            <p>اضغط على التبويبات أدناه لاستعراض التفاصيل الهندسية لكل نظام أساسي في السيارة بشكل تفاعلي:</p>
+            
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="openTab(event, 'tab1')">محرك الاحتراق</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab2')">ناقل الحركة (الفتيس)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab3')">نظام التعليق</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab4')">نظام الفرامل</button>
+                </div>
+                
+                <div id="tab1" class="tab-content active">
+                    <h4>محرك السيارة (قلب النابض)</h4>
+                    <p>هو المسؤول عن تحويل طاقة الوقود (أو الكهرباء في السيارات الحديثة) إلى طاقة حركية عبر حركة المكابس وأعمدة المرفق. يتألف من غرفة الاحتراق، شمعات الاحتراق، ونظام الحقن الإلكتروني للوقود.</p>
+                </div>
+                
+                <div id="tab2" class="tab-content">
+                    <h4>ناقل الحركة (Transmission)</h4>
+                    <p>الوسيط الحيوي الذي ينقل القوة الدافعة من المحرك إلى العجلات بالنسب المناسبة للسرعة والحمل. يشمل الأنواع اليدوية، الأوتوماتيكية، وأنظمة الـ CVT و DCT فائقة الأداء.</p>
+                </div>
+                
+                <div id="tab3" class="tab-content">
+                    <h4>نظام التعليق والمساعدين</h4>
+                    <p>مجموعة الينابيع والمساعدين وأذرع التحكم المخصصة لامتصاص صدمات الحفر والمطبات، ومنح السيارة توازناً استثنائياً وثباتاً آمناً عند المنعطفات الحادة.</p>
+                </div>
+                
+                <div id="tab4" class="tab-content">
+                    <h4>نظام الفرامل المتقدم</h4>
+                    <p>نظام الأمان الأساسي الذي يعتمد على الاحتكاك الهيدروليكي والأنظمة الإلكترونية الذكية مثل مانع الانغلاق ABS وتوزيع قوة الفرملة EBD لإيقاف السيارة بأمان تام في أسرع وقت.</p>
+                </div>
+            </div>
 
-            <h3>3. نظام التعليق والتوجيه (Suspension & Steering)</h3>
-            <p>يضم المساعدين، الينابيع، وأذرع التوازن لامتصاص صدمات الحفر والمطبات وتوفير ثبات استثنائي عند المنعطفات. بينما يتولى نظام التوجيه (Power Steering - سواء كان هيدروليكياً أو كهربائياً EPS) تحويل حركة عجلة القيادة إلى التفاف دقيق للعجلات الأمامية.</p>
+            <!-- القسم الرابع -->
+            <h2 id="section4">رابعاً: مستقبل صناعة السيارات والتقنيات الذكية</h2>
+            <p>تتجه صناعة السيارات نحو آفاق ثورية تتمثل في التوسع الشامل في إنتاج السيارات الكهربائية الصديقة للبيئة، دمج أنظمة القيادة الذاتية المعتمدة على كاميرات الرادار والذكاء الاصطناعي، وتحقيق الاتصال الكامل بين السيارات والطرق الذكية (V2X).</p>
 
-            <h3>4. أنظمة الأمان والسلامة الفعالة وغير الفعالة</h3>
-            <p>تشمل هياكل الامتصاص الذكية (Crumple Zones)، الوسائد الهوائية (Airbags)، أنظمة الفرامل المانعة للانغلاق (ABS)، توزيع قوة الفرملة إلكترونياً (EBD)، ونظام الثبات الإلكتروني (ESP) الذي يمنع انزلاق السيارة في المواقف الحرجة.</p>
+            <!-- القسم الخامس: الأسئلة الشائعة (FAQ) -->
+            <h2 id="section5">خامساً: الأسئلة الشائعة حول صناعة السيارات</h2>
+            <h3>س: كم تستغرق صناعة السيارة الواحدة في المصنع؟</h3>
+            <p>ج: تستغرق عملية تجميع السيارة في الخطوط النهائية عادة ما بين 18 إلى 24 ساعة عمل متواصلة، بينما تستغرق الدورة الكلية للتصنيع والتجهيز أسابيع.</p>
+            <h3>س: ما هي نسبة الروبوتات المستخدمة في المصانع الحديثة؟</h3>
+            <p>ج: تتجاوز نسبة الاعتماد على الأذرع الروبوتية في مراحل الختم واللحام والطلاء أكثر من 85% لضمان أعلى معايير الدقة والسلامة.</p>
 
-            <h2>رابعاً: مستقبل صناعة السيارات والتقنيات الذكية القادمة</h2>
-            <p>تتجه صناعة السيارات بخطى ثابتة نحو مستقبل مستدام يعتمد كلياً على السيارات الكهربائية الصديقة للبيئة، وتقنيات القيادة الذاتية المدعومة بالذكاء الاصطناعي وأنظمة الاتصال المتبادل بين السيارات والبنية التحتية (V2X)، مما يفتح آفاقاً جديدة لراحة وأمان السائقين حول العالم.</p>
+            <!-- قسم التقييم التفاعلي -->
+            <div class="feedback-section">
+                <h3 style="color: #38bdf8; margin-top:0;">هل كان هذا المقال الموسوعي مفيداً لك؟</h3>
+                <p style="margin-bottom: 10px; color:#94a3b8;">ساعدنا في تحسين محتوانا دائماً</p>
+                <div class="feedback-btns">
+                    <button class="feed-btn" onclick="alert('شكراً لتقييمك الإيجابي! يسعدنا ذلك ❤️')">👍 نعم، مفيد جداً</button>
+                    <button class="feed-btn" onclick="alert('شكراً لملاحظتك، سنعمل على تطوير المحتوى أكثر!')">👎 يحتاج تحسين</button>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -227,13 +409,36 @@
     </div>
 
     <script>
+        // شريط تقدم القراءة التفاعلي
+        window.onscroll = function() {
+            let winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // دالة التبويبات التفاعلية (Tabs)
+        function openTab(evt, tabName) {
+            let tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            let tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // نظام التحويل التلقائي عند وجود Hash
         let rawHash = window.location.hash;
-        
-        // التحقق مما إذا كان هناك رابط مخصص في الـ Hash للتحويل
         if (rawHash && rawHash.length > 1) {
-            // إظهار وضع التحويل وإخفاء وضع المقال
             document.getElementById('redirectMode').style.display = 'flex';
             document.getElementById('articleMode').style.display = 'none';
+            document.querySelector('.ad-banner-top').style.display = 'none';
+            document.querySelector('.ad-banner-bottom').style.display = 'none';
+            document.getElementById('progressBar').style.display = 'none';
 
             let targetUrl = "https://cognoor.vercel.app";
             if (rawHash.startsWith("#!")) {
@@ -267,7 +472,6 @@
             }, 1000);
 
         } else {
-            // إذا دخل الزائر على الدومين الرئيسي مباشرة، سيظهر المقال الموسوعي الضخم (لضمان قبول أدسنس)
             document.getElementById('redirectMode').style.display = 'none';
             document.getElementById('articleMode').style.display = 'block';
         }
